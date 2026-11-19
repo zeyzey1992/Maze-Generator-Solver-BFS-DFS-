@@ -1,8 +1,10 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
+import javax.swing.Timer;
 
 public class MazeeCanvas extends JPanel{
 	
@@ -15,10 +17,30 @@ public class MazeeCanvas extends JPanel{
 		this.grid = grid;
 	}
 	
-	public void setPath(java.util.List<Cell> path) {
-        this.path = path;
-        repaint();
-    }
+	public void setPath(List<Cell> path) {
+
+	    this.path = new ArrayList<>();
+
+	    Timer timer = new Timer(200, null);
+
+	    timer.addActionListener(e -> {
+
+	        int i = this.path.size();
+
+	        if (i < path.size()) {
+
+	            this.path.add(path.get(i));
+	            repaint();
+
+	        } else {
+
+	            timer.stop();
+	        }
+
+	    });
+
+	    timer.start();
+	}
 	
 	
 	private void drawCell(Graphics g, Cell c, int top, int left, int cell_dim) {
